@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if show_register %}Kayıt Ol{% else %}Giriş Yap{% endif %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #e7e4ea, #6499f4);
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="d-flex justify-content-center align-items-center">
+
+<div class="form-container">
+    <h4 class="text-center mb-4">
+        {% if show_register %}Kayıt Ol{% else %}Giriş Yap{% endif %}
+    </h4>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <!--
+    {% if login_form.errors or register_form.errors %}
+        <div class="alert alert-danger">
+            {{ login_form.errors }}
+            {{ register_form.errors }}
+        </div>
+    {% endif %}
+    -->
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        {% if show_register %}
+            <div class="mb-3">
+                <label>Ad</label>
+                <input type="text" name="first_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Soyad</label>
+                <input type="text" name="last_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>E-posta</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Telefon No</label>
+                <input type="text" name="phone_number" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Şifre</label>
+                <input type="password" name="password1" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Şifre (Tekrar)</label>
+                <input type="password" name="password2" class="form-control" required>
+            </div>
+
+            <button type="submit" name="register" class="btn btn-success w-100">Kayıt Ol</button>
+            <a href="{% url 'login_register' %}" class="btn btn-link w-100 mt-2">Zaten Hesabınız Var Mı? Giriş Yap</a>
+
+        {% else %}
+            <div class="mb-3">
+                <label>E-posta</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Şifre</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+
+            <button type="submit" name="login" class="btn btn-primary w-100">Giriş Yap</button>
+            <a href="?register=true" class="btn btn-secondary w-100 mt-2">Hesabınız Yok Mu? Kayıt Ol</a>
+        {% endif %}
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
