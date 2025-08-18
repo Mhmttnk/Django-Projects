@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kitap Ekle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4 text-success">➕ Kitap Ekle</h1>
+
+        <!-- ✅ Başarı & Hata Mesajları -->
+        {% if messages %}
+            <div class="mb-3">
+                {% for message in messages %}
+                    <div class="alert 
+                        {% if message.tags == 'success' %} alert-success
+                        {% elif message.tags == 'error' %} alert-danger
+                        {% else %} alert-info
+                        {% endif %}
+                        text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="card p-4 shadow-sm rounded-3 mb-4">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="book_name" class="form-label">Kitap Adı</label>
+                    <input type="text" class="form-control" id="book_name" name="book_name" placeholder="Kitap adı girin" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="author" class="form-label">Yazar</label>
+                    <input type="text" class="form-control" id="author" name="author" placeholder="Yazar adı girin" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="page" class="form-label">Sayfa Sayısı</label>
+                    <input type="number" class="form-control" id="page" name="page" placeholder="Sayfa sayısı girin" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="type" class="form-label">Tür</label>
+                    <input type="text" class="form-control" id="type" name="type" placeholder="Tür girin" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="publication_date" class="form-label">Yayın Yılı</label>
+                    <input type="text" class="form-control" id="publication_date" name="publication_date" placeholder="Örn: 2020" required>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">Kitap Ekle</button>
+            </form>
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="{% url 'home' %}" class="btn btn-secondary">⬅ Ana Sayfa</a>
+        </div>
+    </div>
+
+</body>
+</html>
