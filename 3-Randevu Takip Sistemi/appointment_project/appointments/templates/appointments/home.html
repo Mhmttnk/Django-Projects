@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Anasayfa - Randevu Takip</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0f7fa, #fff3e0);
+            height: 100vh;
+        }
+
+        .container {
+            height: 100vh;
+        }
+
+        .welcome-text {
+            margin-top: 40px;
+            margin-bottom: 40px;
+            font-weight: 400;
+            color: #1a1a1f;
+            text-align: center;
+        }
+
+        .btn-large {
+            width: 200px;
+            height: 120px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgb(0 0 0 / 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-hospital { background-color: #0d6efd; color: white;}
+        .btn-sport { background-color: #198754; color: white; }
+        .btn-clinic { background-color: #ffc107; color: #212529; }
+        .btn-hairdresser { background-color: #dc3545; color: white; }
+
+        .btn-large:hover {
+            opacity: 0.85;
+        }
+
+        .buttons-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container d-flex flex-column justify-content-center align-items-center">
+
+    <h1 class="welcome-text">Lütfen Randevu Almak İstediğiniz Hizmeti Seçiniz</h1>
+
+    <div class="buttons-wrapper">
+    <a href="{% url 'add_hospital_appointment' %}" class="btn btn-large btn-hospital">🏥 Hastane</a>
+    <a href="{% url 'add_sport_appointment' %}" class="btn btn-large btn-sport">💪 Spor</a>
+    <a href="{% url 'add_dental_appointment' %}" class="btn btn-large btn-clinic">🦷 Diş Kliniği</button>
+    <a href="{% url 'add_hairdresser_appointment' %}" class=" btn btn-large btn-hairdresser">💇 Kuaför</a>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

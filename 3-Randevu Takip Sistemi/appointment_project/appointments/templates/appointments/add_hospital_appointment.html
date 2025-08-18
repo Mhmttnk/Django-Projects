@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Hastane Randevusu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(to right, #e0f7fa, #fffde7);
+            min-height: 100vh;
+        }
+
+        .form-card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .form-title {
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .table-container {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="container py-5">
+    <h2 class="text-center mb-4">🏥 Hastane Randevusu Oluştur</h2>
+
+    <!-- Bilgilendirme mesajları -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Randevu Formu -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-card">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <!-- İsim -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">İsim</label>
+                        <input type="text" name="name" id="name" class="form-control" required>
+                    </div>
+
+                    <!-- Soyisim -->
+                    <div class="mb-3">
+                        <label for="surname" class="form-label">Soyisim</label>
+                        <input type="text" name="surname" id="surname" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Poliklinik</label>
+                        <select name="policlinic" class="form-select" required>
+                            <option value="" selected disabled>Seçiniz</option>
+                            <option value="dahiliye">Dahiliye</option>
+                            <option value="kbb">KBB</option>
+                            <option value="onkoloji">Onkoloji</option>
+                            <option value="psikoloji">Psikoloji</option>
+                            <option value="radyoloji">Radyoloji</option>
+                            <option value="nöroloji">Nöroloji</option>
+                            <option value="kardiyoloji">Kardiyoloji</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Cinsiyet</label>
+                        <select name="gender" class="form-select" required>
+                            <option value="" selected disabled>Seçiniz</option>
+                            <option value="erkek">Erkek</option>
+                            <option value="kadın">Kadın</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Gün</label>
+                        <select name="day" class="form-select" required>
+                            <option value="" selected disabled>Seçiniz</option>
+                            <option value="pazartesi">Pazartesi</option>
+                            <option value="salı">Salı</option>
+                            <option value="çarşamba">Çarşamba</option>
+                            <option value="perşembe">Perşembe</option>
+                            <option value="cuma">Cuma</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Saat</label>
+                        <select name="time" class="form-select" required>
+                            <option value="" selected disabled>Seçiniz</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Randevu Oluştur</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Oluşturulan randevular tablosu -->
+    <div class="table-container">
+        <h4 class="text-center mt-5 mb-3">📋 Mevcut Randevular</h4>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th>İsim</th>
+                        <th>Soyisim</th>
+                        <th>Poliklinik</th>
+                        <th>Cinsiyet</th>
+                        <th>Gün</th>
+                        <th>Saat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for randevu in hospital_appointments %}
+                        <tr>
+                            <td>{{ randevu.name|title }}</td>
+                            <td>{{ randevu.surname|title }}</td>
+                            <td>{{ randevu.policlinic|title }}</td>
+                            <td>{{ randevu.gender|title }}</td>
+                            <td>{{ randevu.day|title }}</td>
+                            <td>{{ randevu.time }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6">Henüz randevu oluşturulmadı.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
