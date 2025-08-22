@@ -13,13 +13,11 @@ Her proje kendi klasöründe yer almakta ve bağımsız olarak çalışabilir.
 ⚙️ Kurulum
 Projeyi çalıştırmak için:
 Proje klasörüne girin:
-
 cd ProjeAdi
 
 Sanal ortam oluşturun ve aktif edin:
 python -m venv venv
 source venv/bin/activate   # Windows: venv\Scripts\activate
-
 
 Gereken paketleri yükleyin:
 pip install -r requirements.txt
